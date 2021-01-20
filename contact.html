@@ -42,18 +42,22 @@
 							<!-- Banner -->
 								<section>
 									<div class="content">
-										<header>
-											<h1>Catalog of my rock climbing videos</h1>
-										</header>
-										<p>This website contains a catalog of bouldering, trad and sport climbing videos. You can sort the climbs using each column in the tables so you can sort by name, grade, and location.</p>
-										<ul class="actions">
-											<li><a href="#" class="button">More</a></li>
-										</ul>
-									</div>
-
-									<div class="content">
-										<iframe width="560" height="315" src="https://www.youtube.com/embed/dF8cLrP6HYI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-									</div>
+										<form action="https://00s9x68x29.execute-api.us-east-1.amazonaws.com/dev/static-site-mailer" method="POST">
+										  <label>
+										    Name
+										    <input type="text" name="name" required>
+										  </label>
+										  <label>
+										    Email
+										    <input type="email" name="reply_to" required>
+										  </label>
+										  <label>
+										    Message:
+										    <textarea name="message" required></textarea>
+										  </label>
+										  <button type="submit">Send Message</button>
+										</form>
+										<p id="js-form-response"></p>
 
 								</section>
 
@@ -66,7 +70,7 @@
 
 							<!-- Search -->
 								<section id="search" class="alt">
-									<form method="post" action="#">
+									<form method="post" action="">
 										<input type="text" name="query" id="query" placeholder="Search" />
 									</form>
 								</section>
@@ -90,7 +94,6 @@
 													<li><a href="#">May</a></li>
 												</ul>
 											</li>
-											<li><a href="Contact.html">Contact Us</a></li>
 										</ul>
 									</nav>
 
@@ -110,6 +113,6 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-
+      <script src="assets/js/mailform.js"></script>
 	</body>
 </html>
