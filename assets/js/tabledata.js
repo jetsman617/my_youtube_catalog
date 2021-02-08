@@ -1,42 +1,32 @@
 $(document).ready(function () {
   const table = document.querySelector('.sortable');
   const form = document.querySelector('form');
-  console.log("form.action: " + form.action);
-  const tableResponse = document.querySelector('#js-table-response');
 
   // Construct an HTTP request
-  console.log("JW test");
   var xhr = new XMLHttpRequest();
   xhr.open(form.method, form.action, true);
-  console.log("table.action: " + table.action);
+
   //xhr.setRequestHeader('Accept', 'application/json; charset=utf-8');
   //xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
   // Callback function
-  xhr.onload = response => {
-    console.log("JW test 2");
-    if (response.target.status === 200) {
+  xhr.onload = function(){
+    if (this.status === 200) {
       // The GET request was successful
-      let data = JSON.parse(this.responseText).Table,
-      		tbodyHtml = '';
+      const obj=JSON.parse(this.responseText);
 
-      data.map(function(d) {
-      	tbodyHtml =+ `
-        	<tr>
-          	<td>${d.Name}</td>
-          	<td>${d.Grade}</td>
-          	<td>${d.Contributor}</td>
-            <td>${d.Video}</td>
-          </tr>
-        `;
-      });
+      var txt = "<tr><th>Name</th><th>Grade</th><th>Contributor</th><th>Video</th></tr>";
 
-      document.querySelector('#dataTable tbody').innerHTML = tbodyHtml;
-    } else {
-      // The form submission failed
-      formResponse.innerHTML = 'Oops! Something went wrong.';
-      console.error(JSON.parse(response.target.response).message);
+      for (x in obj){
+        txt += "<tr>" + "<td>"+obj[x].Name+"</td>"
+                      + "<td>"+obj[x].Grade+"</td>"
+                      + "<td>"+obj[x].Contributor+"</td>"
+                      + "<td><a href=\""+obj[x].Video+" target=\"_blank\" rel=\"noopener noreferrer\">"+obj[x].Video+"</a></td>" + "</tr>";
+      }
+      var tableObj = document.querySelector('#dataTable');
+      tableObj.innerHTML = txt;
+      sorttable.makeSortable(tableObj);
     }
-  };
+  }
   xhr.send();
 });
